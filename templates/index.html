@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Generation Software</title>
+</head>
+<body>
+    <h1>Lead Generation Software</h1>
+
+    <form method="POST">
+        <label for="url">Website URL:</label>
+        <input type="text" id="url" name="url" required>
+        <label for="industry">Industry:</label>
+        <input type="text" id="industry" name="industry">
+        <button type="submit">Scrape Leads</button>
+    </form>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    {% if leads %}
+        <h2>Scraped Leads:</h2>
+        <ul>
+            {% for lead in leads %}
+                <li>{{ lead.name }} - {{ lead.company }} ({{ lead.email }})</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
