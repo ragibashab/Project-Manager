@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Leads</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Leads</h1>
+    {% if current_user.is_authenticated %}
+        <p>Welcome, {{ current_user.username }}! <a href="/logout">Logout</a></p>
+    {% endif %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Email</th>
+                <th>URL</th>
+                <th>Industry</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lead in leads %}
+                <tr>
+                    <td>{{ lead[1] }}</td>
+                    <td>{{ lead[2] }}</td>
+                    <td>{{ lead[3] }}</td>
+                    <td>{{ lead[4] }}</td>
+                    <td>{{ lead[5] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

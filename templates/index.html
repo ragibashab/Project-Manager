@@ -4,15 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lead Generation Software</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 2em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-group {
+            margin-bottom: 1em;
+        }
+    </style>
 </head>
 <body>
     <h1>Lead Generation Software</h1>
+    {% if current_user.is_authenticated %}
+        <p>Welcome, {{ current_user.username }}! <a href="/logout">Logout</a></p>
+    {% endif %}
+    <a href="/leads">View All Leads</a>
 
     <form method="POST">
-        <label for="url">Website URL:</label>
-        <input type="text" id="url" name="url" required>
-        <label for="industry">Industry:</label>
-        <input type="text" id="industry" name="industry">
+        <div class="form-group">
+            <label for="url">Website URL:</label>
+            <input type="text" id="url" name="url" required>
+        </div>
+        <div class="form-group">
+            <label for="industry">Industry:</label>
+            <input type="text" id="industry" name="industry">
+        </div>
+        <div class="form-group">
+            <label for="match_type">Match Type:</label>
+            <select id="match_type" name="match_type">
+                <option value="exact">Exact</option>
+                <option value="contains">Contains</option>
+            </select>
+        </div>
         <button type="submit">Scrape Leads</button>
     </form>
 
@@ -22,11 +58,24 @@
 
     {% if leads %}
         <h2>Scraped Leads:</h2>
-        <ul>
-            {% for lead in leads %}
-                <li>{{ lead.name }} - {{ lead.company }} ({{ lead.email }})</li>
-            {% endfor %}
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for lead in leads %}
+                    <tr>
+                        <td>{{ lead.name }}</td>
+                        <td>{{ lead.company }}</td>
+                        <td>{{ lead.email }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% endif %}
 </body>
 </html>
